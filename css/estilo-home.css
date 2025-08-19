@@ -1,0 +1,22 @@
+/* css/estilo.css */
+
+/* Deixando o link do menu "Início" mais destacado, como no mockup */
+.navbar .nav-link.active {
+  font-weight: bold;
+}
+
+/* Ajustando o card para ter uma borda mais suave */
+.card {
+  border-color: #e9ecef;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px); /* Efeito sutil ao passar o mouse */
+}
+
+/* Você pode criar cores personalizadas para os badges se as do Bootstrap não forem suficientes */
+.badge-presencial {
+    background-color: #6f42c1; /* Roxo, como na sua sugestão */
+}
