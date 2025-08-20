@@ -1,0 +1,70 @@
+h1, h2, p, .btn {
+    font-family: Serif !important;
+}
+
+.criarButton {
+    background-color: #5AC143 !important;
+    border-radius: 15px !important;
+    border: 0px !important;
+    color: black !important;
+    font-size: 32px !important;
+}
+
+.transparentButton {
+    background-color: transparent !important;
+    border: 0px !important;
+    border-radius: 20px !important;
+}
+
+.containerPost {
+    border: 0.1px solid whitesmoke;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px lightgray;
+}
+
+.trabalhoVoluntario {
+    background-color: #FF8D00;
+    border-radius: 7px;
+    text-align: center;
+    color: white;
+}
+
+.doacao {
+    background-color: #09A416;
+    border-radius: 7px;
+    text-align: center;
+    color: white;
+}
+
+.presencial {
+    background-color: #6200FF;
+    border-radius: 7px;
+    text-align: center;
+    color: white;
+}
+
+.remoto {
+    background-color: #000DFF;
+    border-radius: 7px;
+    text-align: center;
+    color: white;
+}
+
+.containerInfosUsuario {
+    background-color: whitesmoke;
+    border-radius: 30px;
+}
+
+.containerInfosUsuario img {
+    align-self: flex-end;
+}
+
+.infosUsuarioLabel {
+    font-size: 20px;
+    margin: 7px;
+}
+
+.infosUsuarioValue {
+    font-style: italic;
+    margin-left: 20px;
+}
