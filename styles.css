@@ -1,0 +1,47 @@
+.nav-link:hover,
+.nav-link:focus,
+.nav-link:active{
+    color: orange;
+}
+
+.nav-link{
+    color: black;    
+    margin: 0px 10px;
+}
+
+html, body {
+  height: 100%;            
+}
+
+body {
+  display: flex;           
+  flex-direction: column;  
+  min-height: 100vh;       
+}
+
+main {
+  flex: 1;                 
+}
+
+footer {
+  margin-top: auto;        
+}
+
+.footer-orange{
+    background-color: orange;
+}
+
+.justify-content-end {
+    margin-right: 20px;
+}
+
+
+.shadow-bottom {
+ box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); 
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+    margin: 0 30px;
+}
