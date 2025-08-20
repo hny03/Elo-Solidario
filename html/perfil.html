@@ -21,10 +21,10 @@
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
         <!-- JavaScript -->
-        <script src="../javascript/validarForms.js"></script>
         <script src="../javascript/criarPost.js"></script>
         <script src="../javascript/editarPost.js"></script>
-        <script src="../javascript/resetForms.js"></script>
+        <script src="../javascript/editarUsuario.js"></script>
+        <script src="../javascript/excluirPost.js"></script>
     </head>
 
     <body>
@@ -49,7 +49,14 @@
                     
                 </main>
 
-                <aside class="col-lg-3 p-3 containerInfosConta">
+                <aside id="infosUsuario" class="col-lg-3 p-3 containerInfosUsuario"
+                    data-nome-org="parte maria"
+                    data-cnpj="parte maria"
+                    data-telefone="parte maria"
+                    data-email="parte maria"
+                    data-senha="parte maria"
+                    data-nome-rep="parte maria"
+                    data-email-rep="parte maria">
                     <div class="row pe-4">
                         <div class="offset-lg-10 col-lg-2">
                             <button type="button" class="btn btn-secondary transparentButton p-1 ms-3"
@@ -59,32 +66,32 @@
                         </div>
                     </div>
                     <div>
-                        <p class="infosContaLabel">Nome da Organização</p>
-                        <p class="infosContaValue">Organização não governamental</p>
+                        <p class="infosUsuarioLabel">Nome da Organização</p>
+                        <p id="nomeOrg" class="infosUsuarioValue">parte maria</p>
                     </div>
                     <div>
-                        <p class="infosContaLabel">CNPJ</p>
-                        <p class="infosContaValue">XXXXXX</p>
+                        <p class="infosUsuarioLabel">CNPJ</p>
+                        <p id="cnpj" class="infosUsuarioValue">parte maria</p>
                     </div>
                     <div>
-                        <p class="infosContaLabel">Telefone</p>
-                        <p class="infosContaValue">(00) 0 0000-0000</p>
+                        <p class="infosUsuarioLabel">Telefone</p>
+                        <p id="telefone" class="infosUsuarioValue">parte maria</p>
                     </div>
                     <div>
-                        <p class="infosContaLabel">E-mail</p>
-                        <p class="infosContaValue">email@dominio.com</p>
+                        <p class="infosUsuarioLabel">E-mail</p>
+                        <p id="email" class="infosUsuarioValue">parte maria</p>
                     </div>
                     <div>
-                        <p class="infosContaLabel">Senha</p>
-                        <p class="infosContaValue">************</p>
+                        <p class="infosUsuarioLabel">Senha</p>
+                        <p id="senha" class="infosUsuarioValue">parte maria</p>
                     </div>
                     <div>
-                        <p class="infosContaLabel">Nome Representante</p>
-                        <p class="infosContaValue">Fulano</p>
+                        <p class="infosUsuarioLabel">Nome Representante</p>
+                        <p id="nomeRep" class="infosUsuarioValue">parte maria</p>
                     </div>
                     <div>
-                        <p class="infosContaLabel">E-mail Representante</p>
-                        <p class="infosContaValue">email@dominio.com</p>
+                        <p class="infosUsuarioLabel">E-mail Representante</p>
+                        <p id="emailRep" class="infosUsuarioValue">parte maria</p>
                     </div>
                     <div class="row pe-4">
                         <div class="offset-lg-10 col-lg-2">
