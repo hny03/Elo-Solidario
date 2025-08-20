@@ -75,11 +75,13 @@ function salvarEdicao() {
         emailRep: $("#emailRepEditarUsuario").val()
     }
 
+    const senhaMascarada = "*".repeat(novosDados.senha.length);
+
     usuario.find("#nomeOrg").text(novosDados.nomeOrg);
     usuario.find("#cnpj").text(novosDados.cnpj);
     usuario.find("#telefone").text(novosDados.telefone);
     usuario.find("#email").text(novosDados.email);
-    usuario.find("#senha").text(novosDados.senha);
+    usuario.find("#senha").text(senhaMascarada);
     usuario.find("#nomeRep").text(novosDados.nomeRep);
     usuario.find("#emailRep").text(novosDados.emailRep);
 
