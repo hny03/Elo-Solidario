@@ -1,0 +1,88 @@
+/* css/estilo-global.css */
+
+/* Define a fonte Serif como padrão para todo o corpo do site, melhorando a herança */
+body {
+    font-family: Serif, Georgia, 'Times New Roman', Times, serif;
+}
+
+/* Garante que títulos e botões também herdem a fonte, como no seu perfil.css */
+h1, h2, h3, h4, h5, p, .btn {
+    font-family: inherit; /* 'inherit' faz o elemento usar a fonte do seu pai */
+}
+
+/* Estilo unificado para os Cards, baseado no seu .containerPost */
+.card {
+    border: 0.1px solid #f5f5f5; /* whitesmoke */
+    border-radius: 20px !important;
+    box-shadow: 5px 5px 5px lightgray;
+    transition: transform 0.2s; /* Efeito do index.css */
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Efeito do index.css */
+}
+
+/* Classes personalizadas para os Badges, baseadas no perfil.css */
+.badge-doacao {
+    background-color: #09A416; /* Cor da classe .doacao */
+    border-radius: 7px;
+    padding: 0.5em 0.75em; /* Adicionado padding para melhor visual */
+    color: white;
+}
+
+.badge-voluntariado {
+    background-color: #FF8D00; /* Cor da classe .trabalhoVoluntario */
+    border-radius: 7px;
+    padding: 0.5em 0.75em;
+    color: white;
+}
+
+.badge-presencial {
+    background-color: #6200FF; /* Cor da classe .presencial */
+    border-radius: 7px;
+    padding: 0.5em 0.75em;
+    color: white;
+}
+
+.badge-remoto {
+    background-color: #000DFF; /* Cor da classe .remoto */
+    border-radius: 7px;
+    padding: 0.5em 0.75em;
+    color: white;
+}
+
+/* Mantivemos os outros estilos do seu perfil.css aqui para uso futuro na página de perfil.
+   Eles não afetarão a index.html.
+*/
+.criarButton {
+    background-color: #5AC143 !important;
+    border-radius: 15px !important;
+    border: 0px !important;
+    color: black !important;
+    font-size: 32px !important;
+}
+
+.transparentButton {
+    background-color: transparent !important;
+    border: 0px !important;
+    border-radius: 20px !important;
+}
+
+.containerInfosConta {
+    background-color: whitesmoke;
+    border-radius: 30px;
+}
+
+.containerInfosConta img {
+    align-self: flex-end;
+}
+
+.infosContaLabel {
+    font-size: 20px;
+    margin: 7px;
+}
+
+.infosContaValue {
+    font-style: italic;
+    margin-left: 20px;
+}
