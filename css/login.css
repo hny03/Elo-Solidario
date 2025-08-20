@@ -1,0 +1,70 @@
+/* Importa a fonte Serif para manter consistencia com o projeto */
+body {
+    font-family: Serif !important;
+    background-color: #f5f5f5;
+}
+
+/* Container principal do login */
+.login-card {
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Estilizacao dos campos de input */
+.form-floating .form-control {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+    padding: 12px 15px;
+}
+
+.form-floating .form-control:focus {
+    border-color: #5AC143;
+    box-shadow: 0 0 0 0.2rem rgba(90, 193, 67, 0.25);
+}
+
+.form-floating label {
+    color: #666;
+    font-size: 16px;
+}
+
+/* Botao de entrar */
+.btn-entrar {
+    background-color: #5AC143 !important;
+    border: none !important;
+    border-radius: 15px !important;
+    color: white !important;
+    font-size: 18px !important;
+    font-weight: bold;
+    padding: 12px 0;
+    transition: background-color 0.3s ease;
+}
+
+.btn-entrar:hover {
+    background-color: #4a9e37 !important;
+}
+
+/* Link para cadastro */
+.link-cadastro {
+    color: #4a9e37;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.link-cadastro:hover {
+    color: #5AC143;
+    text-decoration: underline;
+}
+
+/* Responsividade */
+@media (max-width: 576px) {
+    .login-card {
+        padding: 30px 20px;
+        margin: 20px;
+    }
+}
+
