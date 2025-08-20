@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Página de Perfil</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="../css/perfil.css">
+
+        <!-- Bootstrap -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+            rel="stylesheet" integrity="sha384-
+            4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+            crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+            crossorigin="anonymous"></script>
+
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+        <!-- JavaScript -->
+        <script src="../javascript/validarForms.js"></script>
+        <script src="../javascript/criarPost.js"></script>
+        <script src="../javascript/resetForms.js"></script>
+    </head>
+
+    <body>
+        <header>
+            <!-- Hanny -->
+        </header>
+        
+        <div class="container-fluid p-5">
+            <div class="row g-5">
+                <main class="col-lg-9">
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <h1>PUBLICAÇÕES</h1>
+                        </div>
+                        <div class="col-lg-2">
+                            <button type="button" class="btn btn-success criarButton p-0 ps-2 pe-2 ms-4" 
+                                data-bs-toggle="modal" data-bs-target="#modalCriarPost">+ Criar</button>
+                        </div>
+                    </div>
+
+                    <section id="feedPost"></section>
+                    
+                </main>
+
+                <aside class="col-lg-3 p-3 containerInfosConta">
+                    <div class="row pe-4">
+                        <div class="offset-lg-10 col-lg-2">
+                            <button type="button" class="btn btn-secondary transparentButton p-1 ms-3"
+                                data-bs-toggle="modal" data-bs-target="#modalEditarUsuario">
+                                <img src="../imagens/lapis.png" width="25" height="25">
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="infosContaLabel">Nome da Organização</p>
+                        <p class="infosContaValue">Organização não governamental</p>
+                    </div>
+                    <div>
+                        <p class="infosContaLabel">CNPJ</p>
+                        <p class="infosContaValue">XXXXXX</p>
+                    </div>
+                    <div>
+                        <p class="infosContaLabel">Telefone</p>
+                        <p class="infosContaValue">(00) 0 0000-0000</p>
+                    </div>
+                    <div>
+                        <p class="infosContaLabel">E-mail</p>
+                        <p class="infosContaValue">email@dominio.com</p>
+                    </div>
+                    <div>
+                        <p class="infosContaLabel">Senha</p>
+                        <p class="infosContaValue">************</p>
+                    </div>
+                    <div>
+                        <p class="infosContaLabel">Nome Representante</p>
+                        <p class="infosContaValue">Fulano</p>
+                    </div>
+                    <div>
+                        <p class="infosContaLabel">E-mail Representante</p>
+                        <p class="infosContaValue">email@dominio.com</p>
+                    </div>
+                    <div class="row pe-4">
+                        <div class="offset-lg-10 col-lg-2">
+                            <button type="button" class="btn btn-secondary transparentButton p-1 ms-3"
+                                data-bs-toggle="modal" data-bs-target="#modalExcluirUsuario">
+                                <img src="../imagens/lixeira.png" width="25" height="25">
+                            </button>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+
+        <footer>
+            <!-- Hanny -->
+        </footer>
+
+        <!-- Modals -->
+        <div class="modal fade" id="modalCriarPost">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Novo Post</h5>
+                        <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="tituloCriarPost" placeholder="">
+                                <label for="tituloCriarPost">Título Post (*)</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="localCriarPost" placeholder="">
+                                <label for="localCriarPost">Local</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="date" class="form-control" id="dataCriarPost" placeholder="">
+                                <label for="dataCriarPost">Data (*)</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="time" class="form-control" id="horarioCriarPost" placeholder="">
+                                <label for="horarioCriarPost">Horário (*)</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <select class="form-select" id="tipoCriarPost">
+                                    <option selected>-</option>
+                                    <option value="trabalhoVoluntario">Trabalho Voluntário</option>
+                                    <option value="doacao">Doação</option>
+                                </select>
+                                <label for="tipoCriarPost">Tipo (*)</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <select class="form-select" id="modalidadeCriarPost">
+                                    <option selected>-</option>
+                                    <option value="presencial">Presencial</option>
+                                    <option value="remoto">Remoto</option>
+                                </select>
+                                <label for="modalidadeCriarPost">Modalidade (*)</label>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-success">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalEditarPost">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Editar Post</h5>
+                        <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="tituloEditarPost" placeholder="">
+                                <label for="tituloEditarPost">Título Post (*)</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="localEditarPost" placeholder="">
+                                <label for="localEditarPost">Local</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="date" class="form-control" id="dataEditarPost" placeholder="">
+                                <label for="dataEditarPost">Data (*)</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="time" class="form-control" id="horarioEditarPost" placeholder="">
+                                <label for="horarioEditarPost">Horário (*)</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <select class="form-select" id="tipoEditarPost">
+                                    <option selected>-</option>
+                                    <option value="trabalhoVoluntario">Trabalho Voluntário</option>
+                                    <option value="doacao">Doação</option>
+                                </select>
+                                <label for="tipoEditarPost">Tipo (*)</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <select class="form-select" id="modalidadeEditarPost">
+                                    <option selected>-</option>
+                                    <option value="presencial">Presencial</option>
+                                    <option value="remoto">Remoto</option>
+                                </select>
+                                <label for="modalidadeEditarPost">Modalidade (*)</label>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger me-auto"
+                        data-bs-toggle="modal" data-bs-target="#modalExcluirPost">Excluir Post</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-success">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalExcluirPost">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Excluir Post</h5>
+                        <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>ATENÇÃO!</p>
+                        <p>Você deseja excluir seu post? Esta ação não pode ser desfeita.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Excluir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalEditarUsuario">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Editar Usuário</h5>
+                        <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="nomeOrgEditarUsuario" placeholder="">
+                                <label for="nomeOrgEditarUsuario">Nome da Organização (*)</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="cnpjEditarUsuario" placeholder="">
+                                <label for="cnpjEditarUsuario">CNPJ (*)</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="telefoneEditarUsuario" placeholder="">
+                                <label for="telefoneEditarUsuario">Telefone (*)</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="emailEditarUsuario" placeholder="">
+                                <label for="emailEditarUsuario">E-mail (*)</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control" id="senhaEditarUsuario" placeholder="">
+                                <label for="senhaEditarUsuario">Senha (*)</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="nomeRepEditarUsuario" placeholder="">
+                                <label for="nomeRepEditarUsuario">Nome Representante (*)</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="emailRepEditarUsuario" placeholder="">
+                                <label for="emailRepEditarUsuario">E-mail Representante (*)</label>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-success">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalExcluirUsuario">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Excluir Usuário</h5>
+                        <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>ATENÇÃO!</p>
+                        <p>Você deseja excluir seu usuário? Esta ação não pode ser desfeita.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Excluir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
