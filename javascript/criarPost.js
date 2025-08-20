@@ -1,3 +1,45 @@
+$(function(){
+    /* Valida criação de post */
+    $("#modalCriarPost .btn-success").click(function(){
+        const titulo = $("#tituloCriarPost").val();
+        const local = $("#localCriarPost").val();
+        const data = $("#dataCriarPost").val();
+        const horario = $("#horarioCriarPost").val();
+        const tipo = $("#tipoCriarPost").val();
+        const modalidade = $("#modalidadeCriarPost").val();
+
+        const dadosPost = {
+            titulo,
+            local,
+            data,
+            horario,
+            tipo,
+            modalidade
+        };
+
+        if(titulo.trim() === "" || data.trim() === "" || horario.trim() === "" || 
+            tipo.trim() === "-" || modalidade.trim() === "-") {
+            alert("Campos marcados com (*) devem ser preenchidos!");
+        } else {
+            const novoPostHTML = criarPost(dadosPost);
+
+            $("#feedPost").prepend(novoPostHTML);
+            $("#modalCriarPost .btn-secondary").click();
+        }
+    });
+
+    /* Apaga infos ao fechar modal de criação de post */
+    $("#modalCriarPost").on("hide.bs.modal", function(){
+        $("#tituloCriarPost").val("");
+        $("#localCriarPost").val("");
+        $("#dataCriarPost").val("");
+        $("#horarioCriarPost").val("");
+        $("#tipoCriarPost").val("-");
+        $("#modalidadeCriarPost").val("-");
+    });
+});
+
+
 function criarPost(dadosPost) {
     const postID = `post-${Date.now()}`;
 
@@ -7,11 +49,21 @@ function criarPost(dadosPost) {
     let classeModalidade = dadosPost.modalidade;
     let textoModalidade = (dadosPost.modalidade === "presencial") ? "Presencial" : "Remoto";
 
+    const dataTratado = dadosPost.data.split("/");
+    const dataInput = `${dataTratado[2]}-${dataTratado[1]}-${dataTratado[0]}`;
+
     const postHTML = `
-        <section id="${postID}" class="containerPost mb-3">
+        <section id="${postID}" class="containerPost mb-3" 
+            id="${postID}" 
+            data-titulo="${dadosPost.titulo}" 
+            data-local="${dadosPost.local}" 
+            data-data="${dadosPost.data}" 
+            data-horario="${dadosPost.horario}" 
+            data-tipo="${dadosPost.tipo}" 
+            data-modalidade="${dadosPost.modalidade}">
             <div class="row p-3 pb-0">
                 <div class="col-lg-6">
-                <h2>${dadosPost.titulo}</h2>
+                <h2 id="tituloPost">${dadosPost.titulo}</h2>
                 </div>
                 <div class="col-lg-3">
                     <div class="row">
@@ -19,7 +71,7 @@ function criarPost(dadosPost) {
                             <img src="../imagens/local.png" width="20" height="20">
                         </div>
                         <div class="col-lg-10">
-                            <p>${dadosPost.local}</p>
+                            <p id="localPost">${dadosPost.local}</p>
                         </div>
                     </div>
                     <div class="row">
@@ -27,13 +79,13 @@ function criarPost(dadosPost) {
                             <img src="../imagens/relogio.png" width="20" height="20">
                         </div>
                         <div class="col-lg-10">
-                            <p>${dadosPost.data} às ${dadosPost.horario}</p>
+                            <p id="dataHorarioPost">${dadosPost.data} às ${dadosPost.horario}</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3">
-                    <p class="${classeTipo}">${textoTipo}</p>
-                    <p class="${classeModalidade}">${textoModalidade}</p>
+                    <p id="tipoPost" class="${classeTipo}">${textoTipo}</p>
+                    <p id="modalidadePost" class="${classeModalidade}">${textoModalidade}</p>
                 </div>
             </div>
             <div class="row">

@@ -1,22 +1,85 @@
-/* css/estilo.css */
+/* css/estilo-global.css */
 
-/* Deixando o link do menu "Início" mais destacado, como no mockup */
-.navbar .nav-link.active {
-  font-weight: bold;
+/* Define a fonte Serif como padrão para todo o corpo do site, melhorando a herança */
+body {
+    font-family: Serif !important;
 }
 
-/* Ajustando o card para ter uma borda mais suave */
+/* Garante que títulos e botões também herdem a fonte, como no seu perfil.css */
+h1, h2, h3, h4, h5 {
+    font-family: inherit; /* 'inherit' faz o elemento usar a fonte do seu pai */
+}
+
+/* Estilo unificado para os Cards, baseado no seu .containerPost */
 .card {
-  border-color: #e9ecef;
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-  transition: transform 0.2s;
+    border: 0.1px solid #f5f5f5; /* whitesmoke */
+    border-radius: 20px !important;
+    box-shadow: 5px 5px 5px lightgray;
+    transition: transform 0.2s; /* Efeito do index.css */
 }
 
 .card:hover {
-  transform: translateY(-5px); /* Efeito sutil ao passar o mouse */
+    transform: translateY(-5px); /* Efeito do index.css */
 }
 
-/* Você pode criar cores personalizadas para os badges se as do Bootstrap não forem suficientes */
+/* Classes personalizadas para os Badges, baseadas no perfil.css */
+.badge-doacao {
+    background-color: #09A416; /* Cor da classe .doacao */
+    border-radius: 7px;
+    padding: 0.5em 0.75em; /* Adicionado padding para melhor visual */
+    color: white;
+}
+
+.badge-voluntariado {
+    background-color: #FF8D00; /* Cor da classe .trabalhoVoluntario */
+    border-radius: 7px;
+    padding: 0.5em 0.75em;
+    color: white;
+}
+
 .badge-presencial {
-    background-color: #6f42c1; /* Roxo, como na sua sugestão */
+    background-color: #6200FF; /* Cor da classe .presencial */
+    border-radius: 7px;
+    padding: 0.5em 0.75em;
+    color: white;
+}
+
+.badge-remoto {
+    background-color: #000DFF; /* Cor da classe .remoto */
+    border-radius: 7px;
+    padding: 0.5em 0.75em;
+    color: white;
+}
+
+.criarButton {
+    background-color: #5AC143 !important;
+    border-radius: 15px !important;
+    border: 0px !important;
+    color: black !important;
+    font-size: 32px !important;
+}
+
+.transparentButton {
+    background-color: transparent !important;
+    border: 0px !important;
+    border-radius: 20px !important;
+}
+
+.containerInfosConta {
+    background-color: whitesmoke;
+    border-radius: 30px;
+}
+
+.containerInfosConta img {
+    align-self: flex-end;
+}
+
+.infosContaLabel {
+    font-size: 20px;
+    margin: 7px;
+}
+
+.infosContaValue {
+    font-style: italic;
+    margin-left: 20px;
 }
