@@ -5,7 +5,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
         <!-- CSS -->
-        <link rel="stylesheet" href="../css/profile.css">
+        <link rel="stylesheet" href="../css/perfil.css">
 
         <!-- Bootstrap -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,7 +21,8 @@
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
         <!-- JavaScript -->
-        <script src="../javascript/validacaoForms.js"></script>
+        <script src="../javascript/validarForms.js"></script>
+        <script src="../javascript/criarPost.js"></script>
         <script src="../javascript/resetForms.js"></script>
     </head>
 
@@ -43,43 +44,7 @@
                         </div>
                     </div>
 
-                    <section class="containerPost">
-                        <div class="row p-3 pb-0">
-                            <div class="col-lg-6">
-                            <h2>VENHA SER PROFESSOR DE MÚSICA!</h2>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="row">
-                                    <div class="col-lg-2">
-                                        <img src="../imagens/local.png" width="20" height="20">
-                                    </div>
-                                    <div class="col-lg-10">
-                                        <p>Rua antonela ferreira santos 108</p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-2">
-                                        <img src="../imagens/relogio.png" width="20" height="20">
-                                    </div>
-                                    <div class="col-lg-10">
-                                        <p>00/00/00 às 00:00</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <p class="trabalhoVoluntario">Trabalho Voluntário</p>
-                                <p class="presencial">Presencial</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-1 offset-lg-11">
-                                <button type="button" class="btn btn-secondary transparentButton p-0 mb-2 ms-2" 
-                                    data-bs-toggle="modal" data-bs-target="#modalEditarPost">
-                                    <img src="../imagens/ampliar.png" width="25" height="25">
-                                </button>
-                            </div>
-                        </div>
-                    </section>
+                    <section id="feedPost"></section>
                     
                 </main>
 
