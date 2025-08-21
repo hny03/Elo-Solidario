@@ -20,14 +20,7 @@ $(function(){
         }
         
         // Simulacao de login bem-sucedido
-        alert("Login realizado com sucesso!");
-        
-        // Aqui seria feita a integracao com o backend
-        // Por enquanto, apenas simula o redirecionamento
-        console.log("Dados de login:", {
-            email: email,
-            senha: senha
-        });
+        window.location.href = "../html/perfil.html";
         
         // Limpa o formulario apos o "login"
         $("#loginForm")[0].reset();
