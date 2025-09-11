@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Página de Perfil</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <!-- Bootstrap -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-
+            4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/perfil.css">
+    <link rel="stylesheet" href="../css/header-footer.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- Sistema de navegação -->
+    <script src="../javascript/navigation.js"></script>
+
+    <!-- JavaScript -->
+    <script src="../javascript/criarPost.js"></script>
+    <script src="../javascript/editarPost.js"></script>
+    <script src="../javascript/editarUsuario.js"></script>
+    <script src="../javascript/excluirPost.js"></script>
+
+    <script>
+        // Validação de sessão ao carregar a página
+        $(document).ready(function() {
+            verificarSessaoECarregarDados();
+        });
+
+        function verificarSessaoECarregarDados() {
+            $.ajax({
+                url: '../backend/verificar_sessao.php',
+                method: 'GET',
+                dataType: 'json',
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function(response) {
+                    if (!response.logado) {
+                        alert('Você precisa fazer login para acessar esta página!');
+                        window.location.href = 'login.html';
+                        return;
+                    }
+                    // Se chegou aqui, usuário está logado - carrega os dados
+                    carregarDadosUsuario();
+                },
+                error: function(xhr, status, error) {
+                    console.error('Erro ao verificar sessão:', error);
+                    alert('Erro ao verificar sessão. Redirecionando para login...');
+                    window.location.href = 'login.html';
+                }
+            });
+        }
+
+        function carregarDadosUsuario() {
+            $.ajax({
+                url: '../backend/buscar_usuario.php',
+                method: 'GET',
+                dataType: 'json',
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function(response) {
+                    if (response.status === 'success') {
+                        const dados = response.data;
+                        
+                        // Atualiza os elementos da página com os dados do usuário
+                        $('#nomeOrg').text(dados.nome_organizacao);
+                        $('#cnpj').text(dados.cnpj);
+                        $('#telefone').text(dados.telefone);
+                        $('#email').text(dados.email);
+                        $('#senha').text('***');
+                        $('#nomeRep').text(dados.nome_representante);
+                        $('#emailRep').text(dados.email_representante);
+
+                        // Atualiza os data attributes para o modal de edição
+                        $('#infosUsuario').attr({
+                            'data-nome-org': dados.nome_organizacao,
+                            'data-cnpj': dados.cnpj,
+                            'data-telefone': dados.telefone,
+                            'data-email': dados.email,
+                            'data-senha': '', // Não exibimos a senha real
+                            'data-nome-rep': dados.nome_representante,
+                            'data-email-rep': dados.email_representante
+                        });
+                    } else {
+                        alert('Erro ao carregar dados do usuário: ' + response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Erro ao carregar dados:', error);
+                    alert('Erro ao carregar dados do usuário.');
+                }
+            });
+        }
+
+        // Função para atualizar a interface após edição
+        function atualizarInterface(dados) {
+            $('#nomeOrg').text(dados.nome_organizacao);
+            $('#cnpj').text(dados.cnpj);
+            $('#telefone').text(dados.telefone);
+            $('#email').text(dados.email);
+            $('#nomeRep').text(dados.nome_representante);
+            $('#emailRep').text(dados.email_representante);
+
+            // Atualiza os data attributes
+            $('#infosUsuario').attr({
+                'data-nome-org': dados.nome_organizacao,
+                'data-cnpj': dados.cnpj,
+                'data-telefone': dados.telefone,
+                'data-email': dados.email,
+                'data-nome-rep': dados.nome_representante,
+                'data-email-rep': dados.email_representante
+            });
+        }
+    </script>
+</head>
+
+<body>
+
+    <!--Navegação Perfil-->
+    <header class="shadow-bottom">
+        <div class="header-content d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3">
+            <!-- Logo -->
+            <div class="col-md-3 mb-2 mb-md-0">
+                <a href="../index.html" class="d-inline-flex link-body-emphasis text-decoration-none">
+                    <img src="../img/EloSolidario.png" alt="Elo Solidário" class="img-fluid" style="max-height: 60px;">
+                </a>
+            </div>
+
+            <!-- Links centrais -->
+            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="../index.html" class="nav-link px-2">Início</a></li>
+                <li><a href="sobre-nos.html" class="nav-link px-2 ">Sobre nós</a></li>
+            </ul>
+
+            <!-- Link para entrar -->
+            <div class="col-md-3 text-end">
+                <ul class="nav justify-content-end nav-login-section">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link px-2 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <img src="../img/profile.png" alt="Perfil" class="img-fluid" style="max-height: 40px;">
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="perfil.html">Meu Perfil</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger logout-btn" href="#">Sair</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-fluid p-5">
+        <div class="row g-5">
+            <main class="col-lg-9">
+                <div class="row">
+                    <div class="col-lg-10">
+                        <h1>PUBLICAÇÕES</h1>
+                    </div>
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-success criarButton p-0 ps-2 pe-2 ms-4"
+                            data-bs-toggle="modal" data-bs-target="#modalCriarPost">+ Criar</button>
+                    </div>
+                </div>
+
+                <section id="feedPost"></section>
+
+            </main>
+
+            <aside id="infosUsuario" class="col-lg-3 p-3 containerInfosUsuario" data-nome-org="parte maria"
+                data-cnpj="parte maria" data-telefone="parte maria" data-email="parte maria" data-senha="parte maria"
+                data-nome-rep="parte maria" data-email-rep="parte maria">
+                <div class="row pe-4">
+                    <div class="offset-lg-10 col-lg-2">
+                        <button type="button" class="btn btn-secondary transparentButton p-1 ms-3"
+                            data-bs-toggle="modal" data-bs-target="#modalEditarUsuario">
+                            <img src="../imagens/lapis.png" width="25" height="25">
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <p class="infosUsuarioLabel">Nome da Organização</p>
+                    <p id="nomeOrg" class="infosUsuarioValue">xxx</p>
+                </div>
+                <div>
+                    <p class="infosUsuarioLabel">CNPJ</p>
+                    <p id="cnpj" class="infosUsuarioValue">xxxxxxxxxxxxxx</p>
+                </div>
+                <div>
+                    <p class="infosUsuarioLabel">Telefone</p>
+                    <p id="telefone" class="infosUsuarioValue">xxxxxxxxxxx</p>
+                </div>
+                <div>
+                    <p class="infosUsuarioLabel">E-mail</p>
+                    <p id="email" class="infosUsuarioValue">xxx@dominio.com</p>
+                </div>
+                <div>
+                    <p class="infosUsuarioLabel">Senha</p>
+                    <p id="senha" class="infosUsuarioValue">***</p>
+                </div>
+                <div>
+                    <p class="infosUsuarioLabel">Nome Representante</p>
+                    <p id="nomeRep" class="infosUsuarioValue">xxx</p>
+                </div>
+                <div>
+                    <p class="infosUsuarioLabel">E-mail Representante</p>
+                    <p id="emailRep" class="infosUsuarioValue">xxx</p>
+                </div>
+                <div class="row pe-4">
+                    <div class="offset-lg-10 col-lg-2">
+                        <button type="button" class="btn btn-secondary transparentButton p-1 ms-3"
+                            data-bs-toggle="modal" data-bs-target="#modalExcluirUsuario">
+                            <img src="../imagens/lixeira.png" width="25" height="25">
+                        </button>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    
+    <!-- Modals -->
+    <div class="modal fade" id="modalCriarPost">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Novo Post</h5>
+                    <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="tituloCriarPost" placeholder="">
+                            <label for="tituloCriarPost">Título Post (*)</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="localCriarPost" placeholder="">
+                            <label for="localCriarPost">Local</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="date" class="form-control" id="dataCriarPost" placeholder="">
+                            <label for="dataCriarPost">Data (*)</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="time" class="form-control" id="horarioCriarPost" placeholder="">
+                            <label for="horarioCriarPost">Horário (*)</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <select class="form-select" id="tipoCriarPost">
+                                <option selected>-</option>
+                                <option value="trabalhoVoluntario">Trabalho Voluntário</option>
+                                <option value="doacao">Doação</option>
+                            </select>
+                            <label for="tipoCriarPost">Tipo (*)</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <select class="form-select" id="modalidadeCriarPost">
+                                <option selected>-</option>
+                                <option value="presencial">Presencial</option>
+                                <option value="remoto">Remoto</option>
+                            </select>
+                            <label for="modalidadeCriarPost">Modalidade (*)</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-success">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalEditarPost">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar Post</h5>
+                    <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="tituloEditarPost" placeholder="">
+                            <label for="tituloEditarPost">Título Post (*)</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="localEditarPost" placeholder="">
+                            <label for="localEditarPost">Local</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="date" class="form-control" id="dataEditarPost" placeholder="">
+                            <label for="dataEditarPost">Data (*)</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="time" class="form-control" id="horarioEditarPost" placeholder="">
+                            <label for="horarioEditarPost">Horário (*)</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <select class="form-select" id="tipoEditarPost">
+                                <option selected>-</option>
+                                <option value="trabalhoVoluntario">Trabalho Voluntário</option>
+                                <option value="doacao">Doação</option>
+                            </select>
+                            <label for="tipoEditarPost">Tipo (*)</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <select class="form-select" id="modalidadeEditarPost">
+                                <option selected>-</option>
+                                <option value="presencial">Presencial</option>
+                                <option value="remoto">Remoto</option>
+                            </select>
+                            <label for="modalidadeEditarPost">Modalidade (*)</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger me-auto" data-bs-toggle="modal"
+                        data-bs-target="#modalExcluirPost">Excluir Post</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-success">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalExcluirPost">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Excluir Post</h5>
+                    <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>ATENÇÃO!</p>
+                    <p>Você deseja excluir seu post? Esta ação não pode ser desfeita.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Excluir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalEditarUsuario">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Editar Usuário</h5>
+                    <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="nomeOrgEditarUsuario" placeholder="">
+                            <label for="nomeOrgEditarUsuario">Nome da Organização (*)</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="cnpjEditarUsuario" placeholder="">
+                            <label for="cnpjEditarUsuario">CNPJ (*)</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="telefoneEditarUsuario" placeholder="">
+                            <label for="telefoneEditarUsuario">Telefone (*)</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="emailEditarUsuario" placeholder="">
+                            <label for="emailEditarUsuario">E-mail (*)</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="senhaEditarUsuario" placeholder="">
+                            <label for="senhaEditarUsuario">Senha (*)</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="nomeRepEditarUsuario" placeholder="">
+                            <label for="nomeRepEditarUsuario">Nome Representante (*)</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="emailRepEditarUsuario" placeholder="">
+                            <label for="emailRepEditarUsuario">E-mail Representante (*)</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-success">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalExcluirUsuario">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Excluir Usuário</h5>
+                    <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>ATENÇÃO!</p>
+                    <p>Você deseja excluir seu usuário? Esta ação não pode ser desfeita.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Excluir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+ <!-- Rodapé -->
+    <footer class="footer-orange">
+        <div class="footer-content d-flex flex-wrap justify-content-between align-items-center py-3">
+            <div class="col-md-4 d-flex align-items-center">
+                <span class="mb-3 mb-md-0">Elo Solidário © 2025</span>
+            </div>
+
+            <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+                <li class="ms-3">
+                    <a href="#" aria-label="Instagram">
+                        <img src="../img/instagram.png" alt="Elo Solidário" class="img-fluid"
+                            style="max-height: 20px;">
+                    </a>
+                </li>
+
+                <li class="ms-3">
+                    <a href="#" aria-label="Facebook">
+                        <img src="../img/facebook.png" alt="Elo Solidário" class="img-fluid" 
+                            style="max-height: 20px;">
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </footer>
+
+</html>

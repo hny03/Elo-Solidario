@@ -1,0 +1,135 @@
+.nav-link:hover,
+.nav-link:focus,
+.nav-link:active{
+    color: orange;
+}
+
+.nav-link{
+    color: black;    
+    margin: 0px 10px;
+}
+
+html, body {
+  height: 100%;            
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Evita scroll horizontal */
+}
+
+body {
+  display: flex;           
+  flex-direction: column;  
+  min-height: 100vh;       
+}
+
+main {
+  flex: 1;                 
+}
+
+/* Header full-width padronizado */
+header {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  background-color: white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  margin-bottom: 0 !important;
+  position: relative;
+}
+
+/* Footer full-width padronizado */
+.footer-orange {
+    background-color: #FF914D;
+    width: 100%;
+    margin-top: auto;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.footer-content span {
+    color: black;
+}
+
+.footer-content img {
+    max-height: 20px;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.footer-content img:hover {
+    opacity: 1;
+}
+
+/* Container para centralizar conteúdo dentro do header/footer */
+.header-content,
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 100%;
+}
+
+/* Texto do footer sempre preto */
+footer .text-white,
+footer span,
+footer .nav-link {
+  color: black !important;
+}
+
+/* Ícones das redes sociais em preto */
+footer img {
+  filter: none !important;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+footer img:hover {
+  opacity: 1;
+}
+
+.footer-orange {
+    background-color: orange;
+    color: black;
+}
+
+.justify-content-end {
+    margin-right: 0;
+}
+
+.shadow-bottom {
+ box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); 
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Responsividade para header e footer */
+@media (max-width: 768px) {
+    .header-content,
+    .footer-content {
+        padding: 0 15px;
+    }
+    
+    footer .d-flex {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    footer .col-md-4:first-child {
+        margin-bottom: 10px;
+    }
+    
+    footer .nav {
+        justify-content: center !important;
+    }
+    
+    footer .list-unstyled {
+        margin-bottom: 0;
+    }
+}

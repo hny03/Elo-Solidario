@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Conexão - Elo Solidário</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .test-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 600px;
+        }
+        
+        .status-success {
+            color: #28a745;
+            background: rgba(40, 167, 69, 0.1);
+            border: 1px solid #28a745;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .status-error {
+            color: #dc3545;
+            background: rgba(220, 53, 69, 0.1);
+            border: 1px solid #dc3545;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .loading {
+            color: #007bff;
+            background: rgba(0, 123, 255, 0.1);
+            border: 1px solid #007bff;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .btn-test {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            border: none;
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-test:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(40, 167, 69, 0.3);
+            color: white;
+        }
+        
+        .config-info {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="test-container">
+            <div class="text-center mb-4">
+                <h2 class="text-primary">🔍 Teste de Conexão com Banco de Dados</h2>
+                <p class="text-muted">Verifique se a conexão com o MySQL do InfinityFree está funcionando</p>
+            </div>
+            
+            <div class="text-center mb-4">
+                <button id="testarConexao" class="btn btn-test">
+                    <i class="fas fa-database"></i> Testar Conexão
+                </button>
+            </div>
+            
+            <div id="resultado"></div>
+            
+            <div class="mt-4">
+                <h5>📋 Informações para verificar no config.php:</h5>
+                <div class="config-info">
+                    <strong>Host:</strong> sql204.infinityfree.com<br>
+                    <strong>Username:</strong> if0_39911081<br>
+                    <strong>Database:</strong> if0_39911081_[NOME_DO_SEU_BANCO]<br>
+                    <strong>Password:</strong> [SUA_SENHA_DO_CPANEL]
+                </div>
+                <small class="text-muted">
+                    ⚠️ Certifique-se de que o nome do banco de dados está correto (substitua o "XXX" pelo nome real)
+                </small>
+            </div>
+            
+            <div class="mt-4 text-center">
+                <a href="html/cadastro.html" class="btn btn-outline-primary me-2">Ir para Cadastro</a>
+                <a href="html/login.html" class="btn btn-outline-secondary">Ir para Login</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <script>
+        document.getElementById('testarConexao').addEventListener('click', function() {
+            const resultado = document.getElementById('resultado');
+            const botao = this;
+            
+            // Mostra loading
+            resultado.innerHTML = `
+                <div class="loading">
+                    <i class="fas fa-spinner fa-spin"></i> Testando conexão com o banco de dados...
+                </div>
+            `;
+            
+            botao.disabled = true;
+            botao.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Testando...';
+            
+            // Faz a requisição para o arquivo de teste
+            fetch('backend/teste_conexao.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'sucesso') {
+                        resultado.innerHTML = `
+                            <div class="status-success">
+                                <h5><i class="fas fa-check-circle"></i> Conexão Bem-sucedida!</h5>
+                                <p><strong>Mensagem:</strong> ${data.message}</p>
+                                <p><strong>Teste de Query:</strong> ${JSON.stringify(data.teste_query)}</p>
+                                <hr>
+                                <p class="mb-0">✅ O banco de dados está configurado corretamente e pronto para uso!</p>
+                            </div>
+                        `;
+                    } else {
+                        resultado.innerHTML = `
+                            <div class="status-error">
+                                <h5><i class="fas fa-exclamation-triangle"></i> Erro na Conexão</h5>
+                                <p><strong>Mensagem:</strong> ${data.message}</p>
+                                <hr>
+                                <p class="mb-0">❌ Verifique as credenciais no arquivo config.php</p>
+                            </div>
+                        `;
+                    }
+                })
+                .catch(error => {
+                    resultado.innerHTML = `
+                        <div class="status-error">
+                            <h5><i class="fas fa-exclamation-triangle"></i> Erro na Requisição</h5>
+                            <p><strong>Erro:</strong> ${error.message}</p>
+                            <hr>
+                            <p class="mb-0">❌ Verifique se os arquivos foram enviados corretamente para o servidor</p>
+                        </div>
+                    `;
+                })
+                .finally(() => {
+                    botao.disabled = false;
+                    botao.innerHTML = '<i class="fas fa-database"></i> Testar Conexão';
+                });
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,78 @@
+/* Importa a fonte Serif para manter consistencia com o projeto */
+body {
+    font-family: Serif !important;
+    background-color: #f5f5f5;
+}
+
+/* Ajuste o container principal */
+.container-fluid {
+    min-height: calc(100vh - 140px); /* Altura total menos header/footer */
+    padding: 2rem 0; /* Reduzido o padding vertical */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 80px; /* Espaço após o header */
+    margin-bottom: 80px; /* Espaço antes do footer */
+}
+
+/* Container principal do cadastro */
+.cadastro-card {
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto; /* Removido margin vertical */
+}
+
+/* Estilizacao dos campos de input */
+.form-floating .form-control {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+    padding: 12px 15px;
+}
+
+.form-floating .form-control:focus {
+    border-color: #5AC143;
+    box-shadow: 0 0 0 0.2rem rgba(90, 193, 67, 0.25);
+}
+
+.form-floating label {
+    color: #666;
+    font-size: 16px;
+}
+
+/* Botao de criar conta */
+.btn-criar-conta {
+    background-color: #5AC143 !important;
+    border: none !important;
+    border-radius: 15px !important;
+    color: white !important;
+    font-size: 18px !important;
+    font-weight: bold;
+    padding: 12px 0;
+    transition: background-color 0.3s ease;
+}
+
+.btn-criar-conta:hover {
+    background-color: #4a9e37 !important;
+}
+
+/* Responsividade */
+@media (max-width: 576px) {
+    .cadastro-card {
+        padding: 30px 20px;
+        margin: 20px;
+    }
+    
+    .form-floating .form-control {
+        font-size: 14px;
+    }
+    
+    .form-floating label {
+        font-size: 14px;
+    }
+}
+

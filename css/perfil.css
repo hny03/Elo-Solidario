@@ -50,21 +50,29 @@ h1, h2, p, .btn {
     color: white;
 }
 
-.containerInfosConta {
+.containerInfosUsuario {
     background-color: whitesmoke;
     border-radius: 30px;
 }
 
-.containerInfosConta img {
+.containerInfosUsuario img {
     align-self: flex-end;
 }
 
-.infosContaLabel {
+.infosUsuarioLabel {
     font-size: 20px;
     margin: 7px;
 }
 
-.infosContaValue {
+.infosUsuarioValue {
     font-style: italic;
     margin-left: 20px;
+}
+
+#loader {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
 }
