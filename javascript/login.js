@@ -19,6 +19,7 @@ $(function(){
             return false;
         }
         
+<<<<<<< HEAD
         // Simula login bem-sucedido
         const userData = {
             email: email,
@@ -37,6 +38,20 @@ $(function(){
         
         // Redireciona para o perfil
         window.location.href = "perfil.html";
+=======
+        // Simulacao de login bem-sucedido
+        alert("Login realizado com sucesso!");
+        
+        // Aqui seria feita a integracao com o backend
+        // Por enquanto, apenas simula o redirecionamento
+        console.log("Dados de login:", {
+            email: email,
+            senha: senha
+        });
+        
+        // Limpa o formulario apos o "login"
+        $("#loginForm")[0].reset();
+>>>>>>> origin/maria
         
         return true;
     });

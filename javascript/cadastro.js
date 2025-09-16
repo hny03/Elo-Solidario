@@ -74,13 +74,23 @@ $(function(){
             return false;
         }
         
+<<<<<<< HEAD
         // Dados para envio ao backend
         const dadosCadastro = {
             nome_organizacao: nomeOrganizacao,
+=======
+        // Simulacao de cadastro bem-sucedido
+        alert("Cadastro realizado com sucesso!");
+        
+        // Aqui seria feita a integracao com o backend
+        console.log("Dados de cadastro:", {
+            nomeOrganizacao: nomeOrganizacao,
+>>>>>>> origin/maria
             cnpj: cnpjLimpo,
             telefone: telefoneLimpo,
             email: email,
             senha: senha,
+<<<<<<< HEAD
             nome_representante: nomeRepresentante,
             email_representante: emailRepresentante
         };
@@ -128,6 +138,16 @@ $(function(){
         });
         
         return false; // Impede o envio padrão do formulário
+=======
+            nomeRepresentante: nomeRepresentante,
+            emailRepresentante: emailRepresentante
+        });
+        
+        // Limpa o formulario apos o cadastro
+        $("#cadastroForm")[0].reset();
+        
+        return true;
+>>>>>>> origin/maria
     });
     
     // Adiciona efeito visual nos campos quando focados
@@ -141,3 +161,7 @@ $(function(){
         }
     });
 });
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/maria
