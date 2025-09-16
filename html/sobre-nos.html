@@ -19,51 +19,46 @@
     <body>
 
         <!-- Navegação -->
-        <div class="container-fluid">
-            <header
-                class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 shadow-bottom">
-
-                <!-- Logo -->
-                <div class="col-md-3 mb-2 mb-md-0">
-                    <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
-                        <img src="../imagens/EloSolidario.png" alt="Elo Solidário" class="img-fluid" style="max-height: 60px;">
-                    </a>
-                </div>
-
-                <!-- Links centrais -->
-                <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="index.html" class="nav-link px-2">Início</a></li>
-                    <li><a href="sobre-nos.html" class="nav-link px-2">Sobre nós</a></li>
-                </ul>
-
-                <!-- Link para entrar -->
-                <div class="col-md-3 text-end">
-                    <ul class="nav justify-content-end">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link px-2 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                Entre agora
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="login.html">Login</a></li>
-                                <li><a class="dropdown-item" href="cadastro.html">Cadastro</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-
-            </header>
-        </div>
-
-        <!-- Secao hero com imagem de maos coloridas -->
-        <section class="hero-section">
-            <div class="hero-image">
-                <img src="../imagens/maos-coloridas.jpg" alt="Mãos coloridas representando união e solidariedade"
-                    class="img-fluid">
+    <header class="shadow-bottom">
+        <div class="header-content d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3">
+            <!-- Logo -->
+            <div class="col-md-3 mb-2 mb-md-0">
+                <a href="index.html" class="d-inline-flex link-body-emphasis text-decoration-none">
+                    <img src="../imagens/EloSolidario.png" alt="Elo Solidário" class="img-fluid" style="max-height: 60px;">
+                </a>
             </div>
-        </section>
 
-        <!-- Conteudo principal -->
+            <!-- Links centrais -->
+            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="index.html" class="nav-link px-2">Início</a></li>
+                <li><a href="sobre-nos.html" class="nav-link px-2">Sobre nós</a></li>
+            </ul>
+
+            <!-- Link para entrar -->
+            <div class="col-md-3 text-end">
+                <ul class="nav justify-content-end nav-login-section">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link px-2 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Entre agora
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="login.html">Login</a></li>
+                            <li><a class="dropdown-item" href="cadastro.html">Cadastro</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Imagem das Mãos Coloridas - Hero Section -->
+    <div style="width: 100vw; margin-left: calc(-50vw + 50%); background: white; padding: 0;">
+        <img src="../imagens/maos-coloridas.jpg" alt="Mãos coloridas representando união e solidariedade"
+            style="width: 100%; height: 300px; object-fit: cover; display: block; margin: 0; border: none;">
+    </div>
+
+    <!-- Conteudo principal -->
         <main class="container my-5">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
@@ -106,39 +101,31 @@
             </div>
         </main>
 
-        <!-- Rodapé -->
-    <div class="container-fluid">
-        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top footer-orange">
-            <div class="col-md-4 d-flex align-items-center">
-                <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1"
-                    aria-label="Bootstrap">
-                    <svg class="bi" width="30" height="24" aria-hidden="true">
-                        <use xlink:href="#bootstrap"></use>
-                    </svg>
-                </a>
-                <span class="mb-3 mb-md-0 text-body-secondary">Elo Solidário © 2025</span>
-            </div>
 
+    <!-- Footer -->
+    <footer class="footer-orange">
+        <div class="footer-content d-flex flex-wrap justify-content-between align-items-center py-3">
+            <div class="col-md-4 d-flex align-items-center">
+                <span class="mb-3 mb-md-0">Elo Solidário © 2025</span>
+            </div>
 
             <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
                 <li class="ms-3">
-                    <a class="text-body-secondary" href="#" aria-label="Instagram">
-                        <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
-                            <img src="../imagens/instagram.png" alt="Elo Solidário" class="img-fluid"
-                                style="max-height: 20px;">
-                        </a>
+                    <a href="#" aria-label="Instagram">
+                        <img src="../imagens/instagram.png" alt="Elo Solidário" class="img-fluid"
+                            style="max-height: 20px;">
                     </a>
                 </li>
 
                 <li class="ms-3">
-                    <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
-                        <img src="../imagens/facebook.png" alt="Elo Solidário" class="img-fluid" style="max-height: 20px;">
+                    <a href="#" aria-label="Facebook">
+                        <img src="../imagens/facebook.png" alt="Elo Solidário" class="img-fluid" 
+                            style="max-height: 20px;">
                     </a>
                 </li>
             </ul>
-
-        </footer>
-    </div>
+        </div>
+    </footer>
 
         <!-- Font Awesome para icones sociais -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -150,6 +137,9 @@
 
         <!-- jQuery -->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+        <!-- Sistema de navegação -->
+        <script src="../javascript/navigation.js"></script>
 
         <!-- JavaScript personalizado -->
         <script src="../javascript/sobre-nos.js"></script>
