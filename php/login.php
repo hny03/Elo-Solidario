@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,20 +17,32 @@
 </head>
 
 <body>
+
+    <?php
+    session_start();
+
+    if (isset($_GET['erro']) && $_GET['erro'] == 1) {
+        echo "<p style = 'color: red;'>" . htmlspecialchars($_SESSION["erro_login"] ?? '');
+        unset($_SESSION["erro_login"]);
+    }
+    ?>
+
     <!-- Navegação -->
     <header class="shadow-bottom">
-        <div class="header-content d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3">
+        <div
+            class="header-content d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3">
             <!-- Logo -->
             <div class="col-md-3 mb-2 mb-md-0">
-                <a href="index.html" class="d-inline-flex link-body-emphasis text-decoration-none">
-                    <img src="../imagens/EloSolidario.png" alt="Elo Solidário" class="img-fluid" style="max-height: 60px;">
+                <a href="../html/index.html" class="d-inline-flex link-body-emphasis text-decoration-none">
+                    <img src="../imagens/EloSolidario.png" alt="Elo Solidário" class="img-fluid"
+                        style="max-height: 60px;">
                 </a>
             </div>
 
             <!-- Links centrais -->
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="index.html" class="nav-link px-2">Início</a></li>
-                <li><a href="sobre-nos.html" class="nav-link px-2">Sobre nós</a></li>
+                <li><a href="../html/index.html" class="nav-link px-2">Início</a></li>
+                <li><a href="../html/sobre-nos.html" class="nav-link px-2">Sobre nós</a></li>
             </ul>
 
             <!-- Link para entrar -->
@@ -41,8 +54,8 @@
                             Entre agora
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="login.html">Login</a></li>
-                            <li><a class="dropdown-item" href="cadastro.html">Cadastro</a></li>
+                            <li><a class="dropdown-item" href="login.php">Login</a></li>
+                            <li><a class="dropdown-item" href="../html/cadastro.html">Cadastro</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -52,13 +65,13 @@
 
     <div class="container-fluid vh-100 d-flex align-items-center justify-content-center">
         <div class="login-card">
-            <form id="loginForm">
+            <form id="loginForm" method="POST" action="autenticar.php">
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="email" placeholder="E-mail" required>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="E-mail" required>
                     <label for="email">E-mail</label>
                 </div>
                 <div class="form-floating mb-4">
-                    <input type="password" class="form-control" id="senha" placeholder="Senha" required>
+                    <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha" required>
                     <label for="senha">Senha</label>
                 </div>
 
@@ -67,7 +80,7 @@
                 </div>
 
                 <div class="text-center">
-                    <a href="cadastro.html" class="link-cadastro">Fazer cadastro</a>
+                    <a href="../html/cadastro.html" class="link-cadastro">Fazer cadastro</a>
                 </div>
             </form>
         </div>
@@ -104,7 +117,7 @@
 
                 <li class="ms-3">
                     <a href="#" aria-label="Facebook">
-                        <img src="../imagens/facebook.png" alt="Elo Solidário" class="img-fluid" 
+                        <img src="../imagens/facebook.png" alt="Elo Solidário" class="img-fluid"
                             style="max-height: 20px;">
                     </a>
                 </li>

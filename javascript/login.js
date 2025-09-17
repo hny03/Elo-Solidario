@@ -1,7 +1,6 @@
 $(function(){
     // Validacao do formulario de login
     $("#loginForm").submit(function(e){
-        e.preventDefault(); // Impede o envio padrao do formulario
         
         const email = $("#email").val().trim();
         const senha = $("#senha").val().trim();
@@ -19,11 +18,6 @@ $(function(){
             return false;
         }
         
-        // Simulacao de login bem-sucedido
-        window.location.href = "../html/perfil.html";
-        
-        // Limpa o formulario apos o "login"
-        $("#loginForm")[0].reset();
         
         return true;
     });

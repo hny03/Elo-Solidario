@@ -42,7 +42,7 @@
                             Entre agora
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="login.html">Login</a></li>
+                            <li><a class="dropdown-item" href="../php/login.php">Login</a></li>
                             <li><a class="dropdown-item" href="cadastro.html">Cadastro</a></li>
                         </ul>
                     </li>
@@ -53,38 +53,38 @@
 
     <div class="container-fluid py-5 d-flex align-items-center justify-content-center">
         <div class="cadastro-card">
-            <form id="cadastroForm">
+            <form id="cadastroForm" method="POST" action="../php/registrar.php">
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="nomeOrganizacao" placeholder="Nome da organização"
+                    <input type="text" class="form-control" id="nomeOrganizacao" name="nomeOrganizacao" placeholder="Nome da organização"
                         required>
                     <label for="nomeOrganizacao">Nome da organização (*)</label>
                 </div>
 
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="cnpj" placeholder="CNPJ" required>
+                    <input type="text" class="form-control" id="cnpj" name="cnpj" placeholder="CNPJ" required>
                     <label for="cnpj">CNPJ (*)</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="tel" class="form-control" id="telefone" placeholder="Telefone" required>
+                    <input type="tel" class="form-control" id="telefone" name="telefone" placeholder="Telefone" required>
                     <label for="telefone">Telefone (*)</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="email" placeholder="E-mail" required>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="E-mail" required>
                     <label for="email">E-mail (*)</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="password" class="form-control" id="senha" placeholder="Senha" required>
+                    <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha" required>
                     <label for="senha">Senha (*)</label>
                 </div>
 
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="nomeRepresentante" placeholder="Nome representante"
+                    <input type="text" class="form-control" id="nomeRepresentante" name="nomeRepresentante" placeholder="Nome representante"
                         required>
                     <label for="nomeRepresentante">Nome representante (*)</label>
                 </div>
 
                 <div class="form-floating mb-4">
-                    <input type="email" class="form-control" id="emailRepresentante" placeholder="E-mail representante"
+                    <input type="email" class="form-control" id="emailRepresentante" name="emailRepresentante" placeholder="E-mail representante"
                         required>
                     <label for="emailRepresentante">E-mail representante (*)</label>
                 </div>

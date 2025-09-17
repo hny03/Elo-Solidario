@@ -24,7 +24,6 @@ $(function(){
     
     // Validacao do formulario de cadastro
     $("#cadastroForm").submit(function(e){
-        e.preventDefault(); // Impede o envio padrao do formulario
         
         const nomeOrganizacao = $("#nomeOrganizacao").val().trim();
         const cnpj = $("#cnpj").val().trim();
@@ -73,23 +72,6 @@ $(function(){
             alert("A senha deve ter pelo menos 6 caracteres!");
             return false;
         }
-        
-        // Simulacao de cadastro bem-sucedido
-        alert("Cadastro realizado com sucesso!");
-        
-        // Aqui seria feita a integracao com o backend
-        console.log("Dados de cadastro:", {
-            nomeOrganizacao: nomeOrganizacao,
-            cnpj: cnpjLimpo,
-            telefone: telefoneLimpo,
-            email: email,
-            senha: senha,
-            nomeRepresentante: nomeRepresentante,
-            emailRepresentante: emailRepresentante
-        });
-        
-        // Limpa o formulario apos o cadastro
-        $("#cadastroForm")[0].reset();
         
         return true;
     });

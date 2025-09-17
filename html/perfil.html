@@ -29,7 +29,7 @@
     <script src="../javascript/editarUsuario.js"></script>
     <script src="../javascript/excluirPost.js"></script>
 
-    <script>
+   <!-- <script>
         // Validação de sessão ao carregar a página
         $(document).ready(function() {
             verificarSessaoECarregarDados();
@@ -46,7 +46,7 @@
                 success: function(response) {
                     if (!response.logado) {
                         alert('Você precisa fazer login para acessar esta página!');
-                        window.location.href = 'login.html';
+                        window.location.href = '../php/login.php';
                         return;
                     }
                     // Se chegou aqui, usuário está logado - carrega os dados
@@ -55,7 +55,7 @@
                 error: function(xhr, status, error) {
                     console.error('Erro ao verificar sessão:', error);
                     alert('Erro ao verificar sessão. Redirecionando para login...');
-                    window.location.href = 'login.html';
+                    window.location.href = '../php/login.php';
                 }
             });
         }
@@ -122,6 +122,8 @@
             });
         }
     </script>
+
+    -->
 </head>
 
 <body>
