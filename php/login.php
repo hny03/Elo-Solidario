@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Elo Solidário</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/header-footer.css">
+
+</head>
+
+<body>
+
+    <?php
+    session_start();
+
+    if (isset($_GET['erro']) && $_GET['erro'] == 1) {
+        echo "<p style = 'color: red;'>" . htmlspecialchars($_SESSION["erro_login"] ?? '');
+        unset($_SESSION["erro_login"]);
+    }
+    ?>
+
+    <!-- Navegação -->
+    <header class="shadow-bottom">
+        <div
+            class="header-content d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3">
+            <!-- Logo -->
+            <div class="col-md-3 mb-2 mb-md-0">
+                <a href="index.html" class="d-inline-flex link-body-emphasis text-decoration-none">
+                    <img src="../imagens/EloSolidario.png" alt="Elo Solidário" class="img-fluid"
+                        style="max-height: 60px;">
+                </a>
+            </div>
+
+            <!-- Links centrais -->
+            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="index.html" class="nav-link px-2">Início</a></li>
+                <li><a href="sobre-nos.html" class="nav-link px-2">Sobre nós</a></li>
+            </ul>
+
+            <!-- Link para entrar -->
+            <div class="col-md-3 text-end">
+                <ul class="nav justify-content-end nav-login-section">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link px-2 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Entre agora
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="login.html">Login</a></li>
+                            <li><a class="dropdown-item" href="cadastro.html">Cadastro</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-fluid vh-100 d-flex align-items-center justify-content-center">
+        <div class="login-card">
+            <form id="loginForm" method="POST" action="autenticar.php">
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="email" name="email" placeholder="E-mail" required>
+                    <label for="email">E-mail</label>
+                </div>
+                <div class="form-floating mb-4">
+                    <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha" required>
+                    <label for="senha">Senha</label>
+                </div>
+
+                <div class="d-grid mb-3">
+                    <button type="submit" class="btn btn-entrar">Entrar</button>
+                </div>
+
+                <div class="text-center">
+                    <a href="../html/cadastro.html" class="link-cadastro">Fazer cadastro</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- Sistema de navegação -->
+    <script src="../javascript/navigation.js"></script>
+
+    <!-- JavaScript personalizado -->
+    <script src="../javascript/login.js"></script>
+
+    <!-- Footer -->
+    <footer class="footer-orange">
+        <div class="footer-content d-flex flex-wrap justify-content-between align-items-center py-3">
+            <div class="col-md-4 d-flex align-items-center">
+                <span class="mb-3 mb-md-0">Elo Solidário © 2025</span>
+            </div>
+
+            <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+                <li class="ms-3">
+                    <a href="#" aria-label="Instagram">
+                        <img src="../imagens/instagram.png" alt="Elo Solidário" class="img-fluid"
+                            style="max-height: 20px;">
+                    </a>
+                </li>
+
+                <li class="ms-3">
+                    <a href="#" aria-label="Facebook">
+                        <img src="../imagens/facebook.png" alt="Elo Solidário" class="img-fluid"
+                            style="max-height: 20px;">
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </footer>
+</body>
+
+</html>
