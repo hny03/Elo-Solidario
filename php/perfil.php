@@ -1,9 +1,32 @@
+<?php
+    require_once 'conexao.php';
+
+    if (isset($_SESSION["usuario"]["id"])) {
+        $id_usuario = $_SESSION["usuario"]["id"];
+        
+        try {
+            $sql = "SELECT * FROM posts WHERE id_usuario = :id_usuario ORDER BY id DESC";
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(":id_usuario", $id_usuario);
+            $stmt->execute();
+            
+            $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $_SESSION["posts"] = $posts;
+        } catch (PDOException $e) {
+            echo "Erro ao carregar posts: " . $e->getMessage();
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>Página de Perfil</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
     <!-- Bootstrap -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,117 +40,22 @@
     <link rel="stylesheet" href="../css/perfil.css">
     <link rel="stylesheet" href="../css/header-footer.css">
 
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
     <!-- Sistema de navegação -->
     <script src="../javascript/navigation.js"></script>
+
+    <script>
+        // Passar os dados da sessão para o JavaScript
+        var postsData = <?php echo json_encode($_SESSION["posts"]); ?>;
+    </script>
 
     <!-- JavaScript -->
     <script src="../javascript/criarPost.js"></script>
     <script src="../javascript/editarPost.js"></script>
     <script src="../javascript/editarUsuario.js"></script>
     <script src="../javascript/excluirPost.js"></script>
-
-   <!-- <script>
-        // Validação de sessão ao carregar a página
-        $(document).ready(function() {
-            verificarSessaoECarregarDados();
-        });
-
-        function verificarSessaoECarregarDados() {
-            $.ajax({
-                url: '../backend/verificar_sessao.php',
-                method: 'GET',
-                dataType: 'json',
-                xhrFields: {
-                    withCredentials: true
-                },
-                success: function(response) {
-                    if (!response.logado) {
-                        alert('Você precisa fazer login para acessar esta página!');
-                        window.location.href = '../php/login.php';
-                        return;
-                    }
-                    // Se chegou aqui, usuário está logado - carrega os dados
-                    carregarDadosUsuario();
-                },
-                error: function(xhr, status, error) {
-                    console.error('Erro ao verificar sessão:', error);
-                    alert('Erro ao verificar sessão. Redirecionando para login...');
-                    window.location.href = '../php/login.php';
-                }
-            });
-        }
-
-        function carregarDadosUsuario() {
-            $.ajax({
-                url: '../backend/buscar_usuario.php',
-                method: 'GET',
-                dataType: 'json',
-                xhrFields: {
-                    withCredentials: true
-                },
-                success: function(response) {
-                    if (response.status === 'success') {
-                        const dados = response.data;
-                        
-                        // Atualiza os elementos da página com os dados do usuário
-                        $('#nomeOrg').text(dados.nome_organizacao);
-                        $('#cnpj').text(dados.cnpj);
-                        $('#telefone').text(dados.telefone);
-                        $('#email').text(dados.email);
-                        $('#senha').text('***');
-                        $('#nomeRep').text(dados.nome_representante);
-                        $('#emailRep').text(dados.email_representante);
-
-                        // Atualiza os data attributes para o modal de edição
-                        $('#infosUsuario').attr({
-                            'data-nome-org': dados.nome_organizacao,
-                            'data-cnpj': dados.cnpj,
-                            'data-telefone': dados.telefone,
-                            'data-email': dados.email,
-                            'data-senha': '', // Não exibimos a senha real
-                            'data-nome-rep': dados.nome_representante,
-                            'data-email-rep': dados.email_representante
-                        });
-                    } else {
-                        alert('Erro ao carregar dados do usuário: ' + response.message);
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error('Erro ao carregar dados:', error);
-                    alert('Erro ao carregar dados do usuário.');
-                }
-            });
-        }
-
-        // Função para atualizar a interface após edição
-        function atualizarInterface(dados) {
-            $('#nomeOrg').text(dados.nome_organizacao);
-            $('#cnpj').text(dados.cnpj);
-            $('#telefone').text(dados.telefone);
-            $('#email').text(dados.email);
-            $('#nomeRep').text(dados.nome_representante);
-            $('#emailRep').text(dados.email_representante);
-
-            // Atualiza os data attributes
-            $('#infosUsuario').attr({
-                'data-nome-org': dados.nome_organizacao,
-                'data-cnpj': dados.cnpj,
-                'data-telefone': dados.telefone,
-                'data-email': dados.email,
-                'data-nome-rep': dados.nome_representante,
-                'data-email-rep': dados.email_representante
-            });
-        }
-    </script>
-
-    -->
 </head>
 
 <body>
-
     <!--Navegação Perfil-->
     <header class="shadow-bottom">
         <div class="header-content d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3">
@@ -153,7 +81,7 @@
                             <img src="../imagens/profile.png" alt="Perfil" class="img-fluid" style="max-height: 40px;">
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="perfil.html">Meu Perfil</a></li>
+                            <li><a class="dropdown-item" href="perfil.php">Meu Perfil</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item text-danger logout-btn" href="#">Sair</a></li>
                         </ul>
@@ -176,13 +104,55 @@
                     </div>
                 </div>
 
-                <section id="feedPost"></section>
-
+                <section id="feedPost">
+                    <?php foreach ($_SESSION["posts"] as $post): ?>
+                        <?php $classeTipo = ($post["tipo"] === "trabalhoVoluntario") ? "trabalhoVoluntario" : "doacao"; ?>
+                        <?php $classeModalidade = ($post["modalidade"] === "presencial") ? "presencial" : "remoto"; ?>
+                        <?php $tipo = ($post["tipo"] === "trabalhoVoluntario") ? "Trabalho Voluntário" : "Doação" ?>
+                        <?php $modalidade = ($post["modalidade"] === "presencial") ? "Presencial" : "Remoto" ?>
+                        <section id=<?= $post["id"] ?> class="containerPost mb-3">
+                            <div class="row p-3 pb-0">
+                                <div class="col-lg-6">
+                                    <h2 id="tituloPost"> <?= $post["titulo"] ?> </h2>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <img src="../imagens/local.png" width="20" height="20">
+                                        </div>
+                                        <div class="col-lg-10">
+                                            <p id="localPost"> <?= $post["local"] ?> </p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <img src="../imagens/relogio.png" width="20" height="20">
+                                        </div>
+                                        <div class="col-lg-10">
+                                            <p id="dataHorarioPost"> <?= $post["data"] ?> às <?= $post["horario"] ?> </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <p id="tipoPost" class= <?= $classeTipo ?> > <?= $tipo ?> </p>
+                                    <p id="modalidadePost" class= <?= $classeModalidade ?> > <?= $modalidade ?> </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-1 offset-lg-11">
+                                    <button type="button" class="btn btn-secondary transparentButton p-0 mb-2 ms-2" 
+                                        data-bs-toggle="modal" data-bs-target="#modalEditarPost"
+                                        data-post-id="<?= $post["id"] ?>">
+                                        <img src="../imagens/ampliar.png" width="25" height="25">
+                                    </button>
+                                </div>
+                            </div>
+                        </section>
+                    <?php endforeach; ?>
+                </section>
             </main>
 
-            <aside id="infosUsuario" class="col-lg-3 p-3 containerInfosUsuario" data-nome-org="parte maria"
-                data-cnpj="parte maria" data-telefone="parte maria" data-email="parte maria" data-senha="parte maria"
-                data-nome-rep="parte maria" data-email-rep="parte maria">
+            <aside id="infosUsuario" class="col-lg-3 p-3 containerInfosUsuario">
                 <div class="row pe-4">
                     <div class="offset-lg-10 col-lg-2">
                         <button type="button" class="btn btn-secondary transparentButton p-1 ms-3"
@@ -193,31 +163,39 @@
                 </div>
                 <div>
                     <p class="infosUsuarioLabel">Nome da Organização</p>
-                    <p id="nomeOrg" class="infosUsuarioValue">xxx</p>
+                    <p id="nomeOrg" class="infosUsuarioValue">
+                        <?= htmlspecialchars($_SESSION["usuario"]["nomeOrganizacao"]) ?>
+                    </p>
                 </div>
                 <div>
                     <p class="infosUsuarioLabel">CNPJ</p>
-                    <p id="cnpj" class="infosUsuarioValue">xxxxxxxxxxxxxx</p>
+                    <p id="cnpj" class="infosUsuarioValue">
+                        <?= htmlspecialchars($_SESSION["usuario"]["cnpj"]) ?>
+                    </p>
                 </div>
                 <div>
                     <p class="infosUsuarioLabel">Telefone</p>
-                    <p id="telefone" class="infosUsuarioValue">xxxxxxxxxxx</p>
+                    <p id="telefone" class="infosUsuarioValue">
+                        <?= htmlspecialchars($_SESSION["usuario"]["telefone"]) ?>
+                    </p>
                 </div>
                 <div>
                     <p class="infosUsuarioLabel">E-mail</p>
-                    <p id="email" class="infosUsuarioValue">xxx@dominio.com</p>
-                </div>
-                <div>
-                    <p class="infosUsuarioLabel">Senha</p>
-                    <p id="senha" class="infosUsuarioValue">***</p>
+                    <p id="email" class="infosUsuarioValue">
+                        <?= htmlspecialchars($_SESSION["usuario"]["email"]) ?>
+                    </p>
                 </div>
                 <div>
                     <p class="infosUsuarioLabel">Nome Representante</p>
-                    <p id="nomeRep" class="infosUsuarioValue">xxx</p>
+                    <p id="nomeRep" class="infosUsuarioValue">
+                        <?= htmlspecialchars($_SESSION["usuario"]["nomeRepresentante"]) ?>
+                    </p>
                 </div>
                 <div>
                     <p class="infosUsuarioLabel">E-mail Representante</p>
-                    <p id="emailRep" class="infosUsuarioValue">xxx</p>
+                    <p id="emailRep" class="infosUsuarioValue">
+                        <?= htmlspecialchars($_SESSION["usuario"]["emailRepresentante"]) ?>
+                    </p>
                 </div>
                 <div class="row pe-4">
                     <div class="offset-lg-10 col-lg-2">
@@ -231,7 +209,6 @@
         </div>
     </div>
 
-    
     <!-- Modals -->
     <div class="modal fade" id="modalCriarPost">
         <div class="modal-dialog">
@@ -241,44 +218,48 @@
                     <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="formCriarPost" method="POST" action="criarPost.php">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="tituloCriarPost" placeholder="">
-                            <label for="tituloCriarPost">Título Post (*)</label>
+                            <input type="text" class="form-control" placeholder=""
+                            name="tituloCriarPost" id="id_tituloCriarPost">
+                            <label for="id_tituloCriarPost">Título Post (*)</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="localCriarPost" placeholder="">
-                            <label for="localCriarPost">Local</label>
+                            <input type="text" class="form-control" placeholder=""
+                            name="localCriarPost" id="id_localCriarPost">
+                            <label for="id_localCriarPost">Local</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="date" class="form-control" id="dataCriarPost" placeholder="">
-                            <label for="dataCriarPost">Data (*)</label>
+                            <input type="date" class="form-control" placeholder=""
+                            name="dataCriarPost" id="id_dataCriarPost">
+                            <label for="id_dataCriarPost">Data (*)</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="time" class="form-control" id="horarioCriarPost" placeholder="">
-                            <label for="horarioCriarPost">Horário (*)</label>
+                            <input type="time" class="form-control" placeholder=""
+                            name="horarioCriarPost" id="id_horarioCriarPost">
+                            <label for="id_horarioCriarPost">Horário (*)</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <select class="form-select" id="tipoCriarPost">
+                            <select class="form-select" name="tipoCriarPost" id="id_tipoCriarPost">
                                 <option selected>-</option>
                                 <option value="trabalhoVoluntario">Trabalho Voluntário</option>
                                 <option value="doacao">Doação</option>
                             </select>
-                            <label for="tipoCriarPost">Tipo (*)</label>
+                            <label for="id_tipoCriarPost">Tipo (*)</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <select class="form-select" id="modalidadeCriarPost">
+                            <select class="form-select" name="modalidadeCriarPost" id="id_modalidadeCriarPost">
                                 <option selected>-</option>
                                 <option value="presencial">Presencial</option>
                                 <option value="remoto">Remoto</option>
                             </select>
-                            <label for="modalidadeCriarPost">Modalidade (*)</label>
+                            <label for="id_modalidadeCriarPost">Modalidade (*)</label>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-success">Salvar</button>
+                    <button type="submit" class="btn btn-success" form="formCriarPost">Salvar</button>
                 </div>
             </div>
         </div>
@@ -292,46 +273,52 @@
                     <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="formEditarPost" method="POST" action="editarPost.php">
+                        <input type="hidden" name="idEditarPost" id="id_editarPost" value="">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="tituloEditarPost" placeholder="">
-                            <label for="tituloEditarPost">Título Post (*)</label>
+                            <input type="text" class="form-control" placeholder=""
+                            name="tituloEditarPost" id="id_tituloEditarPost">
+                            <label for="id_tituloEditarPost">Título Post (*)</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="localEditarPost" placeholder="">
-                            <label for="localEditarPost">Local</label>
+                            <input type="text" class="form-control" placeholder=""
+                            name="localEditarPost" id="id_localEditarPost">
+                            <label for="id_localEditarPost">Local</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="date" class="form-control" id="dataEditarPost" placeholder="">
-                            <label for="dataEditarPost">Data (*)</label>
+                            <input type="date" class="form-control" placeholder=""
+                            name="dataEditarPost" id="id_dataEditarPost">
+                            <label for="id_dataEditarPost">Data (*)</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="time" class="form-control" id="horarioEditarPost" placeholder="">
-                            <label for="horarioEditarPost">Horário (*)</label>
+                            <input type="time" class="form-control" placeholder=""
+                            name="horarioEditarPost" id="id_horarioEditarPost">
+                            <label for="id_horarioEditarPost">Horário (*)</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <select class="form-select" id="tipoEditarPost">
+                            <select class="form-select" name="tipoEditarPost" id="id_tipoEditarPost">
                                 <option selected>-</option>
                                 <option value="trabalhoVoluntario">Trabalho Voluntário</option>
                                 <option value="doacao">Doação</option>
                             </select>
-                            <label for="tipoEditarPost">Tipo (*)</label>
+                            <label for="id_tipoEditarPost">Tipo (*)</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <select class="form-select" id="modalidadeEditarPost">
+                            <select class="form-select" name="modalidadeEditarPost" id="id_modalidadeEditarPost">
                                 <option selected>-</option>
                                 <option value="presencial">Presencial</option>
                                 <option value="remoto">Remoto</option>
                             </select>
-                            <label for="modalidadeEditarPost">Modalidade (*)</label>
+                            <label for="id_modalidadeEditarPost">Modalidade (*)</label>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger me-auto" data-bs-toggle="modal"
-                        data-bs-target="#modalExcluirPost">Excluir Post</button>
+                    <button type="button" class="btn btn-danger me-auto" 
+                    data-bs-toggle="modal" data-bs-target="#modalExcluirPost"
+                    form="formEditarPost">Excluir Post</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-success">Salvar</button>
+                    <button type="submit" class="btn btn-success" form="formEditarPost">Salvar</button>
                 </div>
             </div>
         </div>
@@ -347,10 +334,13 @@
                 <div class="modal-body">
                     <p>ATENÇÃO!</p>
                     <p>Você deseja excluir seu post? Esta ação não pode ser desfeita.</p>
+                    <form id="formExcluirPost" method="POST" action="excluirPost.php">
+                        <input type="hidden" name="excluirPost" id="id_excluirPost" value="">
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Excluir</button>
+                    <button type="submit" class="btn btn-danger" form="formExcluirPost">Excluir</button>
                 </div>
             </div>
         </div>
@@ -364,40 +354,53 @@
                     <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="formEditarUsuario" method="POST" action="editarUsuario.php">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="nomeOrgEditarUsuario" placeholder="">
-                            <label for="nomeOrgEditarUsuario">Nome da Organização (*)</label>
+                            <input type="text" class="form-control" placeholder="" required
+                            name="nomeOrgEditarUsuario" id="id_nomeOrgEditarUsuario"
+                            value="<?= htmlspecialchars($_SESSION['usuario']['nomeOrganizacao'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+                            <label for="id_nomeOrgEditarUsuario">Nome da Organização (*)</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="cnpjEditarUsuario" placeholder="">
-                            <label for="cnpjEditarUsuario">CNPJ (*)</label>
+                            <input type="text" class="form-control" placeholder="" required
+                            name="cnpjEditarUsuario" id="id_cnpjEditarUsuario"
+                            value="<?= htmlspecialchars($_SESSION['usuario']['cnpj'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+                            <label for="id_cnpjEditarUsuario">CNPJ (*)</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="telefoneEditarUsuario" placeholder="">
-                            <label for="telefoneEditarUsuario">Telefone (*)</label>
+                            <input type="text" class="form-control" placeholder="" required
+                            name="telefoneEditarUsuario" id="id_telefoneEditarUsuario"
+                            value = "<?= htmlspecialchars($_SESSION['usuario']['telefone'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+                            <label for="id_telefoneEditarUsuario">Telefone (*)</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="emailEditarUsuario" placeholder="">
-                            <label for="emailEditarUsuario">E-mail (*)</label>
+                            <input type="text" class="form-control" placeholder="" required
+                            name="emailEditarUsuario" id="id_emailEditarUsuario"
+                            value="<?= htmlspecialchars($_SESSION['usuario']['email'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+                            <label for="id_emailEditarUsuario">E-mail (*)</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="senhaEditarUsuario" placeholder="">
-                            <label for="senhaEditarUsuario">Senha (*)</label>
+                            <input type="password" class="form-control" placeholder="" required
+                            name="senhaEditarUsuario" id="id_senhaEditarUsuario">
+                            <label for="id_senhaEditarUsuario">Senha (*)</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="nomeRepEditarUsuario" placeholder="">
-                            <label for="nomeRepEditarUsuario">Nome Representante (*)</label>
+                            <input type="text" class="form-control" placeholder="" required
+                            name="nomeRepEditarUsuario" id="id_nomeRepEditarUsuario"
+                            value="<?= htmlspecialchars($_SESSION['usuario']['nomeRepresentante'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+                            <label for="id_nomeRepEditarUsuario">Nome Representante (*)</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="emailRepEditarUsuario" placeholder="">
-                            <label for="emailRepEditarUsuario">E-mail Representante (*)</label>
+                            <input type="text" class="form-control" placeholder="" required
+                            name="emailRepEditarUsuario" id="id_emailRepEditarUsuario"
+                            value="<?= htmlspecialchars($_SESSION['usuario']['emailRepresentante'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+                            <label for="id_emailRepEditarUsuario">E-mail Representante (*)</label>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-success">Salvar</button>
+                    <button type="submit" class="btn btn-success" form="formEditarUsuario">Salvar</button>
                 </div>
             </div>
         </div>
@@ -416,7 +419,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Excluir</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                    onclick="window.location.href='excluirUsuario.php'">Excluir</button>
                 </div>
             </div>
         </div>

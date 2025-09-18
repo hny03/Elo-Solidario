@@ -1,5 +1,4 @@
 <?php
-    session_start();
     require_once 'conexao.php'; # Garante que a conexão seja carregada só uma vez
     
     $email = $_POST["email"];
@@ -27,10 +26,9 @@
     if ($usuario) {
         # Armazena informações na sessão global
         $_SESSION["logado"] = true;
-        $_SESSION["id_usuario"] = $usuario["id"];
-        $_SESSION["nome_usuario"] = $usuario["nome"];
+        $_SESSION["usuario"] = $usuario;
 
-        header("Location: ../html/perfil.html"); # Redireciona o usuário para página de painel
+        header("Location: perfil.php"); # Redireciona o usuário para página de painel
         exit();
     } else {
         # Login incorreto

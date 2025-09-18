@@ -1,3 +1,5 @@
+<?php require_once 'conexao.php'; ?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -19,7 +21,6 @@
 <body>
 
     <?php
-    session_start();
 
     if (isset($_GET['erro']) && $_GET['erro'] == 1) {
         echo "<p style = 'color: red;'>" . htmlspecialchars($_SESSION["erro_login"] ?? '');
@@ -67,11 +68,13 @@
         <div class="login-card">
             <form id="loginForm" method="POST" action="autenticar.php">
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="email" name="email" placeholder="E-mail" required>
+                    <input type="email" class="form-control" id="email" 
+                    name="email" placeholder="E-mail" required>
                     <label for="email">E-mail</label>
                 </div>
                 <div class="form-floating mb-4">
-                    <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha" required>
+                    <input type="password" class="form-control" id="senha" 
+                    name="senha" placeholder="Senha" required>
                     <label for="senha">Senha</label>
                 </div>
 

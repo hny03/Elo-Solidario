@@ -42,8 +42,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-
-
 /*
 
 CREATE TABLE usuarios(
