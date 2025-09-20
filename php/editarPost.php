@@ -4,7 +4,7 @@ require_once 'conexao.php';
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     $id_post = $_POST["idEditarPost"];
     $titulo = $_POST["tituloEditarPost"];
-    $local = $_POST["localEditarPost"];
+    $localizacao = $_POST["localizacaoEditarPost"];
     $data = $_POST["dataEditarPost"];
     $horario = $_POST["horarioEditarPost"];
     $tipo = $_POST["tipoEditarPost"];
@@ -14,7 +14,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         $sql = "UPDATE posts SET 
                 titulo = :titulo,
-                local = :local,
+                localizacao = :localizacao,
                 data = :data,
                 horario = :horario,
                 tipo = :tipo,
@@ -24,7 +24,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt = $pdo->prepare($sql);
 
         $stmt->bindParam(":titulo", $titulo);
-        $stmt->bindParam(":local", $local);
+        $stmt->bindParam(":localizacao", $localizacao);
         $stmt->bindParam(":data", $data);
         $stmt->bindParam(":horario", $horario);
         $stmt->bindParam(":tipo", $tipo);
