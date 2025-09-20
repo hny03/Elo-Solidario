@@ -16,38 +16,9 @@ Projeto final da disciplina de Desenvolvimento Web I da Universidade Federal de 
 * ✅ **Página de Detalhes:** Cada oportunidade tem uma página com informações completas.
 * ✅ **Dashboard Administrativo:** Interface para ONGs gerenciarem suas vagas e voluntários.
 
-## 🛠️ Tecnologias Utilizadas
-
-* **Front-end:**
-    * HTML5
-    * CSS3 (com Flexbox/Grid)
-    * JavaScript (ES6+)
-    * Framework CSS: Bootstrap
-
-* **Back-end:**
-    * Node.js com Express.js *(exemplo)*
-    * API: REST
-
-* **Banco de Dados:**
-    * SQL: PostgreSQL / MySQL *(exemplo)*
-    * NoSQL: MongoDB *(exemplo)*
-
-* **Ferramentas e DevOps:**
-    * Git & GitHub
-    * npm
-    * Autenticação: JWT (JSON Web Tokens) *(exemplo)*
-
-## 📸 Demonstração
-
-*Página Inicial*
-![Página Inicial](caminho/para/sua/imagem-home.png)
-
-*Tela de Busca*
-![Tela de Busca](caminho/para/sua/imagem-busca.png)
-
 ## 👥 Equipe
 
-Este projeto foi desenvolvido com muito carinho por:
+Este projeto foi desenvolvido por:
 
 * **A. Vitória Vaz** - [GitHub](https://github.com/vitoria-vaz) | [LinkedIn](https://linkedin.com/in/vitoria-vaz-technology)
 * **Igor M. Mesquita** - [GitHub](https://github.com/mmesqigor) | [LinkedIn](https://linkedin.com/in/mmesqigor)
