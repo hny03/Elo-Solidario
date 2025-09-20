@@ -134,7 +134,7 @@ try {
                                     <p class="mb-0"><strong>PIX para doação:
                                             <?= htmlspecialchars($anuncio['contato']) ?></strong></p>
                                 <?php elseif ($anuncio['tipo_acao'] === 'Voluntariado' && !empty($anuncio['contato'])): ?>
-                                    <p class="mb-0"><strong>Entre em contato:
+                                    <p class="mb-0"><strong>
                                             <?= htmlspecialchars($anuncio['contato']) ?></strong></p>
                                 <?php endif; ?>
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
