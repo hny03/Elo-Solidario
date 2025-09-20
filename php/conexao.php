@@ -1,10 +1,10 @@
 <?php
     session_start();
 
-    $host = "localhost"; 
-    $user = "root";
-    $pass = "";
-    $dbname = "elo_solidario";
+    $host = "sql204.infinityfree.com"; 
+    $user = "if0_39911081";
+    $pass = "dL2ZaY7Ct1";
+    $dbname = "if0_39911081_elo_solidario";
     $charset = "utf8mb4"; 
 
     $dsn = "mysql:host=$host;dbname=$dbname;charset=$charset";
