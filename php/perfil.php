@@ -11,7 +11,7 @@
             $stmt->execute();
             
             $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $_SESSION["posts"] = $posts;
+            $_SESSION["postsUsuario"] = $posts;
         } catch (PDOException $e) {
             echo "Erro ao carregar posts: " . $e->getMessage();
         }
@@ -45,7 +45,7 @@
 
     <script>
         // Passar os dados da sessão para o JavaScript
-        var postsData = <?php echo json_encode($_SESSION["posts"]); ?>;
+        var postsData = <?php echo json_encode($_SESSION["postsUsuario"]); ?>;
     </script>
 
     <!-- JavaScript -->
@@ -61,14 +61,14 @@
         <div class="header-content d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3">
             <!-- Logo -->
             <div class="col-md-3 mb-2 mb-md-0">
-                <a href="index.html" class="d-inline-flex link-body-emphasis text-decoration-none">
+                <a href="index.php" class="d-inline-flex link-body-emphasis text-decoration-none">
                     <img src="../imagens/EloSolidario.png" alt="Elo Solidário" class="img-fluid" style="max-height: 60px;">
                 </a>
             </div>
 
             <!-- Links centrais -->
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="index.html" class="nav-link px-2">Início</a></li>
+                <li><a href="index.php" class="nav-link px-2">Início</a></li>
                 <li><a href="sobre-nos.html" class="nav-link px-2 ">Sobre nós</a></li>
             </ul>
 
@@ -105,7 +105,7 @@
                 </div>
 
                 <section id="feedPost">
-                    <?php foreach ($_SESSION["posts"] as $post): ?>
+                    <?php foreach ($_SESSION["postsUsuario"] as $post): ?>
                         <?php $classeTipo = ($post["tipo"] === "trabalhoVoluntario") ? "trabalhoVoluntario" : "doacao"; ?>
                         <?php $classeModalidade = ($post["modalidade"] === "presencial") ? "presencial" : "remoto"; ?>
                         <?php $tipo = ($post["tipo"] === "trabalhoVoluntario") ? "Trabalho Voluntário" : "Doação" ?>
@@ -121,7 +121,7 @@
                                             <img src="../imagens/local.png" width="20" height="20">
                                         </div>
                                         <div class="col-lg-10">
-                                            <p id="localPost"> <?= $post["local"] ?> </p>
+                                            <p id="localizacaoPost"> <?= $post["localizacao"] ?> </p>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -136,6 +136,9 @@
                                 <div class="col-lg-3">
                                     <p id="tipoPost" class= <?= $classeTipo ?> > <?= $tipo ?> </p>
                                     <p id="modalidadePost" class= <?= $classeModalidade ?> > <?= $modalidade ?> </p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <p id="contatoPost"> <?= $post["contato"] ?> </p>
                                 </div>
                             </div>
                             <div class="row">
@@ -226,8 +229,8 @@
                         </div>
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" placeholder=""
-                            name="localCriarPost" id="id_localCriarPost">
-                            <label for="id_localCriarPost">Local</label>
+                            name="localizacaoCriarPost" id="id_localizacaoCriarPost">
+                            <label for="id_localizacaoCriarPost">Local</label>
                         </div>
                         <div class="form-floating mb-3">
                             <input type="date" class="form-control" placeholder=""
@@ -254,6 +257,11 @@
                                 <option value="remoto">Remoto</option>
                             </select>
                             <label for="id_modalidadeCriarPost">Modalidade (*)</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" placeholder=""
+                            name="contatoCriarPost" id="id_contatoCriarPost">
+                            <label for="id_contatoCriarPost">Contato</label>
                         </div>
                     </form>
                 </div>
@@ -451,5 +459,4 @@
             </ul>
         </div>
     </footer>
-
 </html>
